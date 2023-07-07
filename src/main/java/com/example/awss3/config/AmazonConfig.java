@@ -8,14 +8,24 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 
 @Configuration
 public class AmazonConfig {
+
+    @Value("${secret.key}")
+    private String secretKey;
+
+    @Value("${access.key}")
+    private String accessKey;
+
+
     @Bean
     public AmazonS3 s3() {
         AWSCredentials awsCredentials = new BasicAWSCredentials(
-                "AKIATF2U6ONRMUTGOFGW",
-                "1m9n5KivOvoRg85hazsF0nM0EPbwYyydhgefRH6N"
+                accessKey,secretKey
         );
         return AmazonS3ClientBuilder
                 .standard()
